@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Todo
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="openTodoAlert()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+      <button (click)="toggleReorder()" ion-button *ngIf="!reorderIsEnable">
+        Edit
+      </button>
+      <button (click)="toggleReorder()" ion-button *ngIf="reorderIsEnable">
+        Done
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list [reorder]="reorderIsEnable" (ionItemReorder)="itemReordered($event)" >
+    <ion-item-sliding *ngFor="let todo of todos; let todoIndex = index">
+      <ion-item-options side="left">
+        <button  ion-button (click)="todoEdit(todoIndex)">
+          <ion-icon name="create">
+
+          </ion-icon>
+        </button>
+      </ion-item-options>
+
+      <ion-item >{{todo}}
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="danger" (click)="archiveTodo(todoIndex)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+  </ion-list>
+  <ion-fab right bottom (click)="gotoArchivePage()">
+    <button ion-fab>
+      <ion-icon name="archive"> </ion-icon>
+    </button>
+  </ion-fab>
+
+</ion-content>
